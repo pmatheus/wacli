@@ -26,7 +26,11 @@
 
 - Messages: store display text for reactions, replies, and media; include in search output.
 - Send: `wacli send file --filename` to override display name for uploads. (#7 — thanks @plattenschieber)
+<<<<<<< HEAD
 - Auth: allow `WACLI_DEVICE_LABEL` and `WACLI_DEVICE_PLATFORM` overrides for linked device identity. (#4 — thanks @zats)
+=======
+- Auth: allow optional `WACLI_DEVICE_LABEL` and `WACLI_DEVICE_PLATFORM` overrides for linked device identity. (#4 — thanks @zats)
+>>>>>>> origin/device-label
 
 ### Fixed
 
