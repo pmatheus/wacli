@@ -204,6 +204,22 @@ func (f *fakeWA) JoinGroupWithLink(ctx context.Context, code string) (types.JID,
 
 func (f *fakeWA) LeaveGroup(ctx context.Context, group types.JID) error { return nil }
 
+func (f *fakeWA) IsOnWhatsApp(ctx context.Context, phones []string) ([]types.IsOnWhatsAppResponse, error) {
+	results := make([]types.IsOnWhatsAppResponse, 0, len(phones))
+	for _, phone := range phones {
+		results = append(results, types.IsOnWhatsAppResponse{
+			Query: phone,
+			JID:   types.JID{User: phone, Server: types.DefaultUserServer},
+			IsIn:  true,
+		})
+	}
+	return results, nil
+}
+
+func (f *fakeWA) OwnJID() types.JID {
+	return types.JID{User: "5561000000000", Server: types.DefaultUserServer}
+}
+
 func (f *fakeWA) SendText(ctx context.Context, to types.JID, text string) (types.MessageID, error) {
 	return types.MessageID("msgid"), nil
 }

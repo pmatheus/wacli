@@ -181,6 +181,26 @@ func (c *Client) RemoveEventHandler(id uint32) {
 	cli.RemoveEventHandler(id)
 }
 
+func (c *Client) IsOnWhatsApp(ctx context.Context, phones []string) ([]types.IsOnWhatsAppResponse, error) {
+	c.mu.Lock()
+	cli := c.client
+	c.mu.Unlock()
+	if cli == nil || !cli.IsConnected() {
+		return nil, fmt.Errorf("not connected")
+	}
+	return cli.IsOnWhatsApp(ctx, phones)
+}
+
+func (c *Client) OwnJID() types.JID {
+	c.mu.Lock()
+	cli := c.client
+	c.mu.Unlock()
+	if cli == nil || cli.Store == nil || cli.Store.ID == nil {
+		return types.JID{}
+	}
+	return cli.Store.ID.ToNonAD()
+}
+
 func (c *Client) SendText(ctx context.Context, to types.JID, text string) (types.MessageID, error) {
 	c.mu.Lock()
 	cli := c.client
